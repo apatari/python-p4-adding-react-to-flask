@@ -13,7 +13,14 @@ function App() {
 
   useEffect(() => {
     fetch("http://127.0.0.1:5555/messages")
-      .then((r) => r.json())
+      .then((r) => {
+        if (r.ok) {
+          return r.json()
+        }
+        console.log("message:")
+        console.log(r.statusText)
+        throw r
+      })
       .then((messages) => setMessages(messages));
   }, []);
 
